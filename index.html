@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday, Nerd</title>
+<style>
+body {
+  margin: 0;
+  background: black;
+  color: #00ffcc;
+  font-family: monospace;
+  overflow: hidden;
+}
+
+/* ================= CONFIG EDIT SECTION ================= */
+
+const CONFIG = {
+  nicknameAnswer: "PUT_YOUR_NICKNAME_HERE".toLowerCase(),
+  passwordAnswers: ["pukedick", "puke dick"],
+  gift2Text: "EDIT GIFT 2 TEXT HERE",
+  gift3Text: "EDIT GIFT 3 TEXT HERE",
+  bonusText: "EDIT BONUS IF NEEDED",
+
+  trivia: [
+    { q: "Question 1 here?", a: "answer1" },
+    { q: "Question 2 here?", a: "answer2" },
+    { q: "Question 3 here?", a: "answer3" },
+    { q: "Question 4 here?", a: "answer4" },
+    { q: "Question 5 here?", a: "answer5" },
+    { q: "Question 6 here?", a: "answer6" }
+  ]
+};
+
+/* ======================================================= */
+
+/* STARFIELD */
+#stars {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: black;
+  background-image: radial-gradient(white 1px, transparent 1px);
+  background-size: 3px 3px;
+  animation: moveStars 60s linear infinite;
+  z-index: -1;
+}
+
+@keyframes moveStars {
+  from { background-position: 0 0; }
+  to { background-position: 0 1000px; }
+}
+
+/* SPACE CRAWL */
+#crawl-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  perspective: 400px;
+  overflow: hidden;
+}
+
+#crawl {
+  position: absolute;
+  top: 100%;
+  width: 60%;
+  left: 20%;
+  font-size: 22px;
+  text-align: center;
+  transform-origin: 50% 100%;
+  animation: crawl 45s linear forwards;
+}
+
+@keyframes crawl {
+  0% { top: 100%; transform: rotateX(20deg) translateZ(0); }
+  100% { top: -200%; transform: rotateX(25deg) translateZ(-300px); }
+}
+
+/* LOGIN + SIDEBAR */
+#mainInterface {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+#sidebar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 200px;
+  height: 100%;
+  border-right: 1px solid #00ffcc33;
+  padding: 20px;
+}
+
+.wallet {
+  margin-bottom: 20px;
+}
+
+#content {
+  margin-left: 220px;
+  padding: 40px;
+}
+
+input {
+  background: black;
+  border: 1px solid #00ffcc;
+  color: #00ffcc;
+  padding: 8px;
+  margin: 5px 0;
+}
+
+button {
+  background: black;
+  border: 1px solid #00ffcc;
+  color: #00ffcc;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #00ffcc;
+  color: black;
+}
+
+/* TERMINAL */
+#terminal {
+  display: none;
+  padding: 40px;
+  white-space: pre-line;
+}
+
+/* BONUS SCREEN */
+#bonusScreen {
+  display: none;
+  background: black;
+  color: white;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 28px;
+}
+</style>
+</head>
+<body>
+
+<div id="stars"></div>
+
+<!-- SPACE CRAWL -->
+<div id="crawl-container">
+  <div id="crawl">
+    <p>PASTE YOUR FIRST PARAGRAPH HERE</p>
+    <p>PASTE YOUR SECOND PARAGRAPH HERE</p>
+    <p>PASTE YOUR THIRD PARAGRAPH HERE</p>
+  </div>
+</div>
+
+<!-- MAIN INTERFACE -->
+<div id="mainInterface">
+  <div id="sidebar">
+    <div class="wallet">BTC: 4.2391</div>
+    <div class="wallet">ETH: 12.993</div>
+    <div class="wallet">XMR: 88.23</div>
+    <div class="wallet">SOL: 145.88</div>
+  </div>
+
+  <div id="content">
+    <h2>Secure Access Required</h2>
+    <input id="username" placeholder="Username"><br>
+    <input id="password" type="password" placeholder="Password"><br>
+    <button onclick="checkLogin()">ENTER</button>
+  </div>
+</div>
+
+<!-- TERMINAL -->
+<div id="terminal"></div>
+
+<!-- BONUS -->
+<div id="bonusScreen">
+  <div>
+    To unlock the bonus:<br><br>
+    Find your Best Friend and give her a hug.<br><br>
+    Good Luck.
+  </div>
+</div>
+
+<script>
+setTimeout(() => {
+  document.getElementById("crawl-container").style.display = "none";
+  document.getElementById("mainInterface").style.display = "block";
+}, 45000);
+
+function checkLogin() {
+  const user = document.getElementById("username").value.trim().toLowerCase();
+  const pass = document.getElementById("password").value.trim().toLowerCase();
+
+  if (
+    user === CONFIG.nicknameAnswer &&
+    CONFIG.passwordAnswers.includes(pass)
+  ) {
+    loadTerminal();
+  } else {
+    alert("Access Denied.");
+  }
+}
+
+function loadTerminal() {
+  document.getElementById("mainInterface").style.display = "none";
+  const term = document.getElementById("terminal");
+  term.style.display = "block";
+  term.innerText =
+    "memory integrity check initiated.\n\n" +
+    "answer all questions correctly.\n\n";
+  startTrivia();
+}
+
+let triviaIndex = 0;
+
+function startTrivia() {
+  askQuestion();
+}
+
+function askQuestion() {
+  const term = document.getElementById("terminal");
+  if (triviaIndex >= CONFIG.trivia.length) {
+    decryptWallet();
+    return;
+  }
+
+  const q = CONFIG.trivia[triviaIndex];
+  const answer = prompt(q.q);
+  if (!answer) return;
+
+  if (answer.trim().toLowerCase() === q.a.toLowerCase()) {
+    triviaIndex++;
+    askQuestion();
+  } else {
+    alert("Memory corruption detected. Restarting.");
+    triviaIndex = 0;
+    askQuestion();
+  }
+}
+
+function decryptWallet() {
+  const term = document.getElementById("terminal");
+  term.innerText += "\nall memories verified.\ndecrypting wallet...\n";
+  setTimeout(() => {
+    showCheck();
+  }, 3000);
+}
+
+function showCheck() {
+  alert("ROOM FOR RENT — PAID");
+  if (confirm("ACCEPT?")) {
+    bonusPrompt();
+  }
+}
+
+function bonusPrompt() {
+  const goBonus = confirm("Go for the bonus round?");
+  if (goBonus) {
+    document.getElementById("terminal").style.display = "none";
+    document.getElementById("bonusScreen").style.display = "flex";
+  }
+}
+</script>
+
+</body>
+</html>
