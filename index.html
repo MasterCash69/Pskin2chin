@@ -123,7 +123,7 @@ button:hover{
   width:100%;
   height:100%;
   position:absolute;
-  display:flex;
+  display:none;
   justify-content:center;
   align-items:center;
   text-align:center;
@@ -343,15 +343,14 @@ function decrypt(){
 }
 
 function acceptPrize(){
- if(confirm("Go for bonus round?")){
-  document.getElementById("checkScreen").classList.add("hidden");
-  const bonus = document.getElementById("bonus");
-  bonus.classList.remove("hidden");
-  bonus.style.display = "flex";
- }
+  if(confirm("Go for bonus round?")){
+    document.getElementById("checkScreen").classList.add("hidden");
+
+    const bonus = document.getElementById("bonus");
+    bonus.style.display = "flex";  // 👈 make it visible properly
+  }
 }
 </script>
 
 </body>
 </html>
-
