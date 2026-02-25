@@ -3,36 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <title>Happy Birthday, Nerd</title>
+
 <style>
 body{
   margin:0;
   background:black;
-  color:#00ffcc;
+  color:#00ff88;
   font-family:monospace;
+  text-shadow:0 0 5px #00ff88;
   overflow:hidden;
 }
-.hidden{display:none;}
-.center{
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  text-align:center;
-}
-button,input{
-  background:black;
-  border:1px solid #00ffcc;
-  color:#00ffcc;
-  padding:8px;
-  margin:5px;
-}
-button:hover{
-  background:#00ffcc;
-  color:black;
-  cursor:pointer;
-}
 
-/* STARFIELD */
+/* STAR BACKGROUND */
 #stars{
   position:fixed;
   width:100%;
@@ -60,9 +42,76 @@ button:hover{
   from{transform:translateY(0);}
   to{transform:translateY(-500px);}
 }
-@keyframes starsMove{
-  from{background-position:0 0;}
-  to{background-position:0 1000px;}
+
+/* HEADER */
+#top-header{
+  position:fixed;
+  top:0;
+  width:100%;
+  text-align:center;
+  font-size:32px;
+  padding:15px;
+  background:rgba(0,0,0,0.8);
+  border-bottom:1px solid #00ff8844;
+  z-index:10;
+}
+
+/* LAYOUT */
+#layout{
+  display:flex;
+  margin-top:80px;
+  height:calc(100vh - 80px);
+}
+
+/* LEFT PANEL */
+#left-panel{
+  width:250px;
+  padding:20px;
+  border-right:1px solid #00ff8844;
+}
+
+/* RIGHT PANEL */
+#right-panel{
+  width:250px;
+  padding:20px;
+  border-left:1px solid #00ff8844;
+  text-align:center;
+}
+
+#right-panel img{
+  width:100%;
+  margin-bottom:10px;
+  border:1px solid #00ff8844;
+}
+
+/* CENTER PANEL */
+#center-panel{
+  flex:1;
+  position:relative;
+  overflow:hidden;
+}
+
+/* PANEL BOX */
+.panel-box{
+  border:1px solid #00ff8844;
+  padding:15px;
+  margin-bottom:20px;
+  background:rgba(0,0,0,0.6);
+}
+
+input,button{
+  background:black;
+  border:1px solid #00ff88;
+  color:#00ff88;
+  padding:8px;
+  margin-top:5px;
+  width:100%;
+}
+
+button:hover{
+  background:#00ff88;
+  color:black;
+  cursor:pointer;
 }
 
 /* SPACE CRAWL */
@@ -73,6 +122,7 @@ button:hover{
   perspective:400px;
   overflow:hidden;
 }
+
 #crawl{
   position:absolute;
   top:100%;
@@ -83,291 +133,69 @@ button:hover{
   transform-origin:50% 100%;
   animation:crawl 45s linear forwards;
 }
+
 @keyframes crawl{
   0%{top:100%;transform:rotateX(20deg);}
   100%{top:-200%;transform:rotateX(25deg);}
 }
 
-/* SIDEBAR */
-#sidebar{
-  position:absolute;
-  left:0;
-  top:0;
-  width:200px;
-  height:100%;
-  border-right:1px solid #00ffcc33;
-  padding:20px;
-}
-.wallet{margin-bottom:20px;}
-
-/* GLITCH EFFECT */
-.glitch{
-  animation:glitch 0.2s infinite;
-}
-@keyframes glitch{
-  0%{transform:translate(2px,0);}
-  50%{transform:translate(-2px,0);}
-  100%{transform:translate(2px,0);}
-}
-
-/* BSOD */
-#bsod{
-  background:#001a6e;
-  color:white;
-  width:100%;
-  height:100%;
-  position:absolute;
-  top:0;
-  left:0;
-  padding:50px;
-}
-
-/* CHECK */
-#check{
-  background:white;
-  color:black;
-  width:600px;
-  padding:40px;
-  border:4px solid black;
-  margin:auto;
-  font-size:20px;
-}
-
-/* BONUS SCREEN */
-#bonus{
-  background:black;
-  color:white;
-  width:100%;
-  height:100%;
-  position:absolute;
-  display:none;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  font-size:28px;
-}
 </style>
 </head>
+
 <body>
 
 <div id="stars"></div>
 
-<!-- CONFIG -->
-<script>
-const CONFIG={
- nickname:"PUT_YOUR_NICKNAME".toLowerCase(),
- passwords:["pukedick","puke dick"],
- gift2:"EDIT GIFT 2 HERE",
- gift3:"EDIT GIFT 3 HERE",
- trivia:[
-  {q:"Question 1?",a:"answer1"},
-  {q:"Question 2?",a:"answer2"},
-  {q:"Question 3?",a:"answer3"},
-  {q:"Question 4?",a:"answer4"},
-  {q:"Question 5?",a:"answer5"},
-  {q:"Question 6?",a:"answer6"}
- ]
-};
-</script>
+<header id="top-header">
+  Happy Birthday, Nerd
+</header>
 
-<!-- SPACE CRAWL -->
-<div id="crawl-container">
-<div id="crawl">
-<p>PARAGRAPH ONE HERE</p>
-<p>PARAGRAPH TWO HERE</p>
-<p>PARAGRAPH THREE HERE</p>
+<div id="layout">
+
+  <!-- LEFT PANEL -->
+  <div id="left-panel">
+
+    <div class="panel-box">
+      <h3>Wallets</h3>
+      <div>BTC: 0.00213</div>
+      <div>ETH: 1.337</div>
+      <div>DOGE: 4200</div>
+    </div>
+
+    <div class="panel-box">
+      <h3>Login</h3>
+      <input type="text" placeholder="username">
+      <input type="password" placeholder="password">
+      <button>Enter</button>
+    </div>
+
+  </div>
+
+  <!-- CENTER -->
+  <div id="center-panel">
+    <div id="crawl-container">
+      <div id="crawl">
+        <p>
+        You survived another year.<br><br>
+        Through bugs, crashes, existential dread,  
+        and questionable life decisions...<br><br>
+        Yet here you are.<br><br>
+        Leveling up.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div id="right-panel">
+    <div class="panel-box">
+      <img src="https://picsum.photos/200/150">
+      <img src="https://picsum.photos/200/151">
+      <img src="https://picsum.photos/200/152">
+    </div>
+  </div>
+
 </div>
-</div>
-
-<!-- MAIN LOGIN -->
-<div id="main" class="hidden">
-<div id="sidebar">
-<div class="wallet">BTC: 4.2391</div>
-<div class="wallet">ETH: 12.993</div>
-<div class="wallet">XMR: 88.23</div>
-<div class="wallet">SOL: 145.88</div>
-</div>
-
-<div class="center">
-<h2>Secure Access Required</h2>
-<input id="user" placeholder="Username"><br>
-<input id="pass" type="password" placeholder="Password"><br>
-<button onclick="login()">ENTER</button>
-</div>
-</div>
-
-<!-- CASINO -->
-<div id="casino" class="hidden center">
-<h1>CRYPTO CASINO</h1>
-<p>Click anywhere to spin...</p>
-</div>
-
-<!-- 404 -->
-<div id="error404" class="hidden center">
-<h1>404 ERROR</h1>
-<p>System Corruption Detected</p>
-</div>
-
-<!-- TERMINAL -->
-<div id="terminal" class="hidden" style="padding:40px;"></div>
-
-<!-- BSOD -->
-<div id="bsod" class="hidden"></div>
-
-<!-- CAPTCHA -->
-<div id="captcha" class="hidden center">
-<h3>Human Verification Required</h3>
-<div id="captchaText" style="font-size:30px;"></div>
-<input id="captchaInput">
-<button onclick="checkCaptcha()">Verify</button>
-</div>
-
-<!-- CHECK -->
-<div id="checkScreen" class="hidden center">
-<div id="check">
-PAY TO THE ORDER OF:<br><br>
-HIM<br><br>
-AMOUNT:<br>
-ONE ROOM – PAID<br><br>
-<button onclick="acceptPrize()">ACCEPT</button>
-</div>
-</div>
-
-<!-- BONUS -->
-<div id="bonus" class="hidden">
-<div>
-To unlock the bonus:<br><br>
-Find your Best Friend and give her a hug.<br><br>
-Good Luck.
-</div>
-</div>
-
-<script>
-setTimeout(()=>{
- document.getElementById("crawl-container").classList.add("hidden");
- document.getElementById("main").classList.remove("hidden");
-},45000);
-
-/* LOGIN */
-function login(){
- let u=user.value.trim().toLowerCase();
- let p=pass.value.trim().toLowerCase();
- if(u===CONFIG.nickname && CONFIG.passwords.includes(p)){
-  main.classList.add("hidden");
-  casino.classList.remove("hidden");
- }else alert("Access Denied");
-}
-
-/* CASINO CLICK */
-casino.onclick=()=>{
- casino.classList.add("glitch");
- setTimeout(()=>{
-  casino.classList.add("hidden");
-  error404.classList.remove("hidden");
-  setTimeout(()=>{
-   error404.classList.add("hidden");
-   startTerminal();
-  },3000);
- },1000);
-};
-
-/* TERMINAL */
-function startTerminal(){
- terminal.classList.remove("hidden");
- terminal.innerText="Loading binary stream...\n\n";
- setTimeout(()=>{
-  terminal.innerText="lets see if you got any skill?\nType - p";
-  enableCommand();
- },3000);
-}
-
-function enableCommand(){
- let cmd=prompt("Enter command:");
- if(cmd.trim()==="- p") startPlinko();
- else alert("Command not recognized");
-}
-
-/* PLINKO */
-function startPlinko(){
- terminal.innerText="Plinko Loaded...\nBalance: 100\n";
- setTimeout(()=>{
-  terminal.innerText+="\nBalance Critical...\nJACKPOT HIT!\n";
-  setTimeout(()=>{
-   showBSOD();
-  },2000);
- },3000);
-}
-
-/* BSOD */
-function showBSOD(){
- bsod.classList.remove("hidden");
- bsod.innerHTML="<h2>Your system ran into a problem...</h2><br>"+CONFIG.gift2;
- setTimeout(()=>{
-  bsod.classList.add("hidden");
-  startCaptcha();
- },5000);
-}
-
-/* CAPTCHA */
-let captchaAnswer="7XkP9";
-let correctCount=0;
-function startCaptcha(){
- captcha.classList.remove("hidden");
- captchaText.innerText=captchaAnswer;
-}
-function checkCaptcha(){
- let val=captchaInput.value.trim();
- if(val===captchaAnswer){
-  correctCount++;
-  if(correctCount<3){
-   alert("Verification failed.");
-  }else{
-   captcha.classList.add("hidden");
-   startTrivia();
-  }
- }else alert("Verification failed.");
-}
-
-/* TRIVIA */
-let index=0;
-function startTrivia(){
- ask();
-}
-function ask(){
- if(index>=CONFIG.trivia.length){
-  decrypt();
-  return;
- }
- let ans=prompt(CONFIG.trivia[index].q);
- if(ans && ans.trim().toLowerCase()===CONFIG.trivia[index].a.toLowerCase()){
-  index++;
-  ask();
- }else{
-  alert("Memory corruption detected.");
-  index=0;
-  ask();
- }
-}
-
-/* DECRYPT */
-function decrypt(){
- terminal.classList.remove("hidden");
- terminal.innerText="All memories verified.\nDecrypting wallet...";
- setTimeout(()=>{
-  terminal.classList.add("hidden");
-  checkScreen.classList.remove("hidden");
- },3000);
-}
-
-function acceptPrize(){
-  if(confirm("Go for bonus round?")){
-    document.getElementById("checkScreen").classList.add("hidden");
-
-    const bonus = document.getElementById("bonus");
-    bonus.style.display = "flex";  // 👈 make it visible properly
-  }
-}
-</script>
 
 </body>
 </html>
