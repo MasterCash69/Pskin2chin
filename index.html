@@ -344,11 +344,14 @@ function decrypt(){
 
 function acceptPrize(){
  if(confirm("Go for bonus round?")){
-  checkScreen.classList.add("hidden");
+  document.getElementById("checkScreen").classList.add("hidden");
+  const bonus = document.getElementById("bonus");
   bonus.classList.remove("hidden");
+  bonus.style.display = "flex";
  }
 }
 </script>
 
 </body>
 </html>
+
